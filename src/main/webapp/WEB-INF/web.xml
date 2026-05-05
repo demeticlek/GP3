@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+         http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"
+     	version="3.1">
+
+    <display-name>ApplyTrack</display-name>
+    <description>Job Application Tracker for Students - CST8288 Group Project 2</description>
+
+    <!-- Login Servlet [PR0002] -->
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.applytrack.servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <!-- Register Servlet [PR0001] -->
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.applytrack.servlet.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <!-- Logout Servlet -->
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>com.applytrack.servlet.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <!-- Dashboard Servlet [PR0005, PR0009] -->
+    <servlet>
+        <servlet-name>DashboardServlet</servlet-name>
+        <servlet-class>com.applytrack.servlet.DashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DashboardServlet</servlet-name>
+        <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+
+    <!-- Add Application Servlet [PR0005] -->
+    <servlet>
+        <servlet-name>ApplicationServlet</servlet-name>
+        <servlet-class>com.applytrack.servlet.ApplicationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ApplicationServlet</servlet-name>
+        <url-pattern>/application</url-pattern>
+    </servlet-mapping>
+
+    <!-- Edit Application Servlet [PR0005, PR0006] -->
+    <servlet>
+        <servlet-name>EditApplicationServlet</servlet-name>
+        <servlet-class>com.applytrack.servlet.EditApplicationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditApplicationServlet</servlet-name>
+        <url-pattern>/edit-application</url-pattern>
+    </servlet-mapping>
+
+    <!-- Delete Application Servlet [PR0005] -->
+    <servlet>
+        <servlet-name>DeleteApplicationServlet</servlet-name>
+        <servlet-class>com.applytrack.servlet.DeleteApplicationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteApplicationServlet</servlet-name>
+        <url-pattern>/delete-application</url-pattern>
+    </servlet-mapping>
+
+    <!-- Welcome file redirects to login -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- Session timeout: 30 minutes -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+</web-app>

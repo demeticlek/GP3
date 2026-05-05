@@ -1,0 +1,221 @@
+/* 
+   ApplyTrack - CST8288 Group Project 2
+   Global stylesheet for all JSP pages
+*/
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    color: #1a1a2e;
+}
+
+/* --- Navbar --- */
+.navbar {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar .brand {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.nav-user { color: #a0a0c0; }
+.nav-link { color: #7eb8ff; text-decoration: none; }
+
+/* --- Layout --- */
+.container {
+    max-width: 960px;
+    margin: 24px auto;
+    padding: 0 16px;
+}
+
+/* --- Card --- */
+.card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+/* --- Typography --- */
+h1, h2 { margin-bottom: 16px; color: #1a1a2e; }
+h2 { font-size: 1.3em; }
+.subtitle {
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 20px;
+}
+.empty-msg {
+    color: #6b7280;
+    margin-top: 16px;
+}
+
+/* --- Forms --- */
+.form-group {
+    margin-bottom: 14px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+}
+.form-group textarea {
+    height: 80px;
+    resize: vertical;
+}
+.form-row {
+    display: flex;
+    gap: 12px;
+}
+.form-row .form-group { flex: 1; }
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+/* --- Buttons --- */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+}
+.btn-primary { background: #2563eb; }
+.btn-primary:hover { background: #1d4ed8; }
+.btn-danger { background: #dc2626; }
+.btn-danger:hover { background: #b91c1c; }
+.btn-secondary { background: #6b7280; }
+.btn-secondary:hover { background: #4b5563; }
+.btn-sm { padding: 6px 12px; font-size: 0.85em; }
+.btn-full { width: 100%; margin-top: 8px; }
+
+/* --- Alerts --- */
+.alert {
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+}
+.alert-error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+.alert-success {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #86efac;
+}
+
+/* --- Stats Bar [PR0009] --- */
+.stats-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.stat-card {
+    flex: 1;
+    min-width: 120px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.stat-card .stat-number {
+    font-size: 2em;
+    font-weight: bold;
+    color: #2563eb;
+}
+.stat-card .stat-label {
+    font-size: 0.85em;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+/* --- Table --- */
+table { width: 100%; border-collapse: collapse; }
+th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+th {
+    background: #f9fafb;
+    font-weight: 600;
+    font-size: 0.9em;
+    color: #374151;
+}
+tr:hover { background: #f3f4f6; }
+.actions { display: flex; gap: 6px; }
+
+/* --- Status Badges [PR0006] --- */
+.status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+.status-saved { background: #e0e7ff; color: #3730a3; }
+.status-applied { background: #dbeafe; color: #1e40af; }
+.status-interviewing { background: #fef3c7; color: #92400e; }
+.status-offer { background: #dcfce7; color: #166534; }
+.status-rejected { background: #fee2e2; color: #991b1b; }
+.status-closed { background: #f3f4f6; color: #374151; }
+
+/* --- Auth Pages --- */
+.auth-wrapper {
+    max-width: 420px;
+    margin: 60px auto;
+}
+.auth-wrapper h1 { text-align: center; }
+.auth-footer {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.9em;
+}
+.auth-footer a { color: #2563eb; }
+
+/* --- Footer --- */
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #9ca3af;
+    font-size: 0.85em;
+    margin-top: 40px;
+}
