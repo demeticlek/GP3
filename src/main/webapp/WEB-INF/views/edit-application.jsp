@@ -81,7 +81,7 @@
 </div>
 
 <footer class="footer">
-    <p>&copy; 2025 ApplyTrack &mdash; CST8288 Group Project</p>
+    <p>© <%= java.time.Year.now() %> ApplyTrack — CST8288 Group Project</p>
 </footer>
 
 </body>
