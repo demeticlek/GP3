@@ -3,8 +3,13 @@ package com.applytrack.model;
 import java.time.LocalDate;
 
 /**
- * Builder pattern for Application objects.
- * It makes servlet code cleaner by moving object construction into a single fluent class.
+ * Builder pattern implementation for constructing Application objects.
+ *
+ * This builder provides a readable and maintainable way to create
+ * Application instances that contain many optional and required fields.
+ *
+ * Using the Builder pattern improves code clarity in servlets and avoids
+ * telescoping constructors or excessive setter usage.
  */
 public class ApplicationBuilder {
     private final Application application;
