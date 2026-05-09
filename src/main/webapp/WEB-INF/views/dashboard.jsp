@@ -57,12 +57,29 @@
 
     <!-- Application List [PR0005] -->
     <div class="card">
-        <div class="card-header">
-            <h2>My Applications</h2>
-            <a href="application" class="btn btn-primary btn-sm">+ Add Application</a>
-        </div>
+    <div class="card-header">
+        <h2>My Applications</h2>
+        <a href="application" class="btn btn-primary btn-sm">+ Add Application</a>
+    </div>
 
-        <c:choose>
+    <!-- Feature improvement:
+         Status filter lets users narrow the dashboard application list
+         without changing the underlying dashboard statistics. -->
+    <form method="get" action="dashboard" class="filter-form">
+        <label for="status">Filter by status:</label>
+
+        <select name="status" id="status" onchange="this.form.submit()">
+            <option value="All" ${selectedStatus == 'All' ? 'selected' : ''}>All</option>
+            <option value="Saved" ${selectedStatus == 'Saved' ? 'selected' : ''}>Saved</option>
+            <option value="Applied" ${selectedStatus == 'Applied' ? 'selected' : ''}>Applied</option>
+            <option value="Interviewing" ${selectedStatus == 'Interviewing' ? 'selected' : ''}>Interviewing</option>
+            <option value="Offer" ${selectedStatus == 'Offer' ? 'selected' : ''}>Offer</option>
+            <option value="Rejected" ${selectedStatus == 'Rejected' ? 'selected' : ''}>Rejected</option>
+            <option value="Closed" ${selectedStatus == 'Closed' ? 'selected' : ''}>Closed</option>
+        </select>
+    </form>
+
+    <c:choose>
             <c:when test="${empty applications}">
                 <p class="empty-msg">No applications yet. Click <strong>+ Add Application</strong> to get started!</p>
             </c:when>

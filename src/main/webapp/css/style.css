@@ -211,6 +211,20 @@ tr:hover { background: #f3f4f6; }
 }
 .auth-footer a { color: #2563eb; }
 
+/* --- New Filter --- */
+.filter-form {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-form select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
 /* --- Footer --- */
 .footer {
     text-align: center;
