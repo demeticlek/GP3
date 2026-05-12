@@ -4,6 +4,9 @@ import com.applytrack.dao.ApplicationRepository;
 import com.applytrack.dao.DaoFactory;
 import com.applytrack.model.Application;
 import com.applytrack.model.ApplicationBuilder;
+import com.applytrack.observer.ApplicationEvent;
+import com.applytrack.observer.ApplicationEventPublisher;
+import com.applytrack.observer.ApplicationEventType;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,13 +15,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+
 /**
  * Handles creation of application records. Uses Builder pattern to construct the
  * domain object and Repository abstraction for persistence.
  */
 public class ApplicationServlet extends HttpServlet {
 
-    private final ApplicationRepository appRepository = DaoFactory.getInstance().getApplicationRepository();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2245991086425304931L;
+	private final ApplicationRepository appRepository = DaoFactory.getInstance().getApplicationRepository();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -55,6 +63,10 @@ public class ApplicationServlet extends HttpServlet {
         }
 
         try {
+        	// Builder pattern:
+        	// ApplicationBuilder is used to construct Application objects with multiple
+        	// required and optional fields in a clean and readable way.
+        	// This avoids large constructor parameter lists and reduces repetitive setter calls.
             Application app = new ApplicationBuilder()
                     .userId(userId)
                     .companyName(companyName)
@@ -65,7 +77,22 @@ public class ApplicationServlet extends HttpServlet {
                     .notes(req.getParameter("notes"))
                     .build();
 
-            appRepository.createApplication(app);
+            int appId = appRepository.createApplication(app);
+
+            // Observer pattern:
+            // After the application is saved, publish a CREATED event.
+            // This keeps the servlet focused on request handling while allowing
+            // separate observer classes to respond to application changes.
+            ApplicationEventPublisher.getInstance().notifyObservers(
+                    new ApplicationEvent(
+                            ApplicationEventType.CREATED,
+                            userId,
+                            appId,
+                            app.getCompanyName(),
+                            app.getStatus()
+                    )
+            );
+
             resp.sendRedirect("dashboard?msg=Application+added+successfully!");
 
         } catch (Exception e) {

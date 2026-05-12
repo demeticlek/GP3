@@ -4,6 +4,9 @@ import com.applytrack.dao.ApplicationRepository;
 import com.applytrack.dao.DaoFactory;
 import com.applytrack.model.Application;
 import com.applytrack.model.ApplicationBuilder;
+import com.applytrack.observer.ApplicationEvent;
+import com.applytrack.observer.ApplicationEventPublisher;
+import com.applytrack.observer.ApplicationEventType;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,13 +15,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+
 /**
  * Handles editing an application record. Uses Repository abstraction and Builder
  * pattern to keep servlet code focused on HTTP/session workflow.
  */
 public class EditApplicationServlet extends HttpServlet {
 
-    private final ApplicationRepository appRepository = DaoFactory.getInstance().getApplicationRepository();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8752366895646924984L;
+	private final ApplicationRepository appRepository = DaoFactory.getInstance().getApplicationRepository();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -83,6 +91,10 @@ public class EditApplicationServlet extends HttpServlet {
                 return;
             }
 
+            // Builder pattern:
+            // Rebuild the Application object using ApplicationBuilder instead of manually
+            // setting each field individually. This improves readability and maintainability
+            // when handling objects with many configurable properties.
             Application updated = new ApplicationBuilder()
                     .id(appId)
                     .userId(userId)
@@ -94,8 +106,28 @@ public class EditApplicationServlet extends HttpServlet {
                     .notes(req.getParameter("notes"))
                     .build();
 
-            appRepository.updateApplication(updated);
-            resp.sendRedirect("dashboard?msg=Application+updated+successfully!");
+            
+            boolean saved = appRepository.updateApplication(updated);
+
+            if (saved) {
+                // Observer pattern:
+                // If the update succeeds, publish an UPDATED event.
+                // This decouples post-update behavior from the servlet and makes it easier
+                // to add future features such as notifications or audit logging.
+                ApplicationEventPublisher.getInstance().notifyObservers(
+                        new ApplicationEvent(
+                                ApplicationEventType.UPDATED,
+                                userId,
+                                appId,
+                                updated.getCompanyName(),
+                                updated.getStatus()
+                        )
+                );
+
+                resp.sendRedirect("dashboard?msg=Application+updated+successfully!");
+            } else {
+                resp.sendRedirect("dashboard?error=Application+not+found.");
+            }
 
         } catch (Exception e) {
             resp.sendRedirect("dashboard?error=Error+updating+application.");

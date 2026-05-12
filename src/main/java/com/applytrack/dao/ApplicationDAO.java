@@ -65,6 +65,31 @@ public class ApplicationDAO implements ApplicationRepository {
         }
         return list;
     }
+    
+    /**
+     * Retrieves applications for a specific user filtered by status.
+     * Used by the dashboard status filter feature added in Part 3 of the Project
+     */
+    @Override
+    public List<Application> findByUserIdAndStatus(int userId, String status) throws SQLException {
+        String sql = "SELECT * FROM applications WHERE user_id = ? AND status = ? ORDER BY updated_at DESC";
+        List<Application> list = new ArrayList<>();
+
+        try (Connection conn = DatabaseUtil.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+            ps.setString(2, status);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(mapRow(rs));
+                }
+            }
+        }
+
+        return list;
+    }
 
     /**
      * Retrieves a single application by ID.
